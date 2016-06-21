@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script>
+
+			function setResi() {
+    			document.cookie = "customer=residential; expires=Thu, 18 Dec 2099 12:00:00 UTC; path=/";
+			}
+			function setBusi() {
+    			document.cookie = "customer=commercial; expires=Thu, 18 Dec 2099 12:00:00 UTC; path=/";
+			}
+			function destroyPref() {
+    			 document.cookie = "customer=; expires=Thu, 18 Dec 2099 12:00:00 UTC; path=/";
+
+			}
+			function getCookie(customer) {
+    			var type = customer + "=";
+    			var ca = document.cookie.split(';');
+    				for(var i = 0; i <ca.length; i++) {
+        				var c = ca[i];
+        					while (c.charAt(0)==' ') {
+            					c = c.substring(1);
+        					}
+        			if (c.indexOf(type) == 0) {
+            			return c.substring(type.length,c.length);
+        			}
+    				}
+    				return "";
+			}
+			function redirect() {
+				var link = getCookie("customer");
+				if (link != ""){
+
+					x=document.getElementsByClassName("output");  // Find the element
+        			for(var i = 0; i < x.length; i++){
+        				x[i].innerText="Welcome " + link;    // Change the content
+        				}	
+
+				}
+				
+			}
+
+		</script>
+	</head>
+	<body onload="redirect();">
+		<p>Website Preferences</p>
+		<p class="output">Choose Type</p>
+		<a onclick="setResi()" id="residential" href="residential.html">Residential</a>
+		<a onclick="setBusi()" id="commercial" href="commercial.html">Business</a>
+		<a onclick="destroyPref()" id="forget" href="index.html">Forget</a>
+		<a href="index.html">Go Back</a>
+	</body>
+</html>
+
